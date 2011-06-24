@@ -1,0 +1,27 @@
+#!/usr/bin/env ./node_modules/coffee-script/bin/coffee
+
+fs       = require 'fs'
+optparse = require 'optparse'
+
+global.ASE = {}
+
+switches = [
+	[ '-d', '--debug', 'runs ASE in debug mode' ]
+]
+
+parser = new optparse.OptionParser switches
+
+parser.on 'debug', (op, value) ->
+	# send ourselves a SIGUSR1 to enable the debugger
+	process.kill process.pid, 'SIGUSR1'
+
+parser.parse process.argv
+
+libs = fs.readdirSync './lib'
+require "./lib/#{lib}" for lib in libs
+
+config = require('./config/config.coffee').config
+
+server = new ASE.Server(config)
+
+server.run()
