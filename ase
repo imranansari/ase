@@ -7,6 +7,7 @@ global.ASE = {}
 
 switches = [
 	[ '-d', '--debug', 'runs ASE in debug mode' ]
+	[ '-f', '--fake',  'show fake hits' ]
 ]
 
 parser = new optparse.OptionParser switches
@@ -14,6 +15,9 @@ parser = new optparse.OptionParser switches
 parser.on 'debug', (op, value) ->
 	# send ourselves a SIGUSR1 to enable the debugger
 	process.kill process.pid, 'SIGUSR1'
+
+parser.on 'fake', (op, value) ->
+	ASE.fake = true
 
 parser.parse process.argv
 

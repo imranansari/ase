@@ -4,7 +4,7 @@ _       = require 'underscore'
 
 class ASE.Server
 	
-	constructor: (@config) ->
+	constructor: (@config, fake = false) ->
 		
 		publicdir = @config.server.public ? 'public'
 		
@@ -18,7 +18,7 @@ class ASE.Server
 		
 		@geolocator = new ASE.Geolocator(this, @config)
 		@socket     = new ASE.Socket(this, @config)
-		@queue      = new ASE.Queue(this, @config)
+		@queue      = if ASE.fake? then new ASE.FakeQueue(this, @config) else new ASE.Queue(this, @config)
 		
 	run: ->
 		
@@ -30,7 +30,6 @@ class ASE.Server
 	
 	handleMessage: (message) ->
 		addr = message?.http?.ipAddress
-		addr = '74.125.91.147' #test
 		if addr?
 			@geolocator.lookup addr, (err, result) =>
 				if err?

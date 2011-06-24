@@ -19,7 +19,6 @@
       }, this));
     };
     Client.prototype.addMarker = function(hit) {
-      console.log(hit);
       return this.markers.push(new google.maps.Marker({
         map: this.map,
         animation: google.maps.Animation.DROP,

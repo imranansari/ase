@@ -19,7 +19,6 @@ class ASE.Client
 			@socket.on 'message', _.bind(@addMarker, this)
 			
 	addMarker: (hit) ->
-		console.log hit
 		@markers.push new google.maps.Marker
 			map: @map
 			animation: google.maps.Animation.DROP
