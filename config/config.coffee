@@ -6,7 +6,7 @@ exports.config =
 	
 	queue:
 		host:     'localhost'
-		exchange: 'zen-logging'
+		exchange: 'zen.logging'
 	
 	geoip:
 		db:       'data/GeoLiteCity.dat'
